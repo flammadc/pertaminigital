@@ -15,10 +15,12 @@ if (isset($_POST['register'])) {
     $username = $_POST['username'];
     $tanggalLahir = $_POST['tanggalLahir'];
     $email = $_POST['email'];
-    $password = md5($_POST["password"]);
-    $cpassword = md5($_POST["cpassword"]);
+    $password = $_POST["password"];
+    $cpassword = $_POST["cpassword"];
 
     if ($password == $cpassword) {
+        $password = password_hash($_POST["password"], PASSWORD_DEFAULT);
+
         $sql = "SELECT * FROM users WHERE username='$username'";
         $result = mysqli_query($conn, $sql);
         if ($result->num_rows === 0) {
