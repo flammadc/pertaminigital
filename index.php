@@ -2,17 +2,15 @@
 include('components/navbar.php');
 require 'config.php';
 
-error_reporting(0);
-
 session_start();
 
 if (isset($_SESSION['username'])) {
-    header("Location: ./dashboard.php");
+    header("Location: dashboard.php");
 }
 
-if (isset($_POST["submit"])) {
+if (isset($_POST["login"])) {
     $username = $_POST['username'];
-    $password = md5($_POST['password']);
+    $password = $_POST['password'];
 
     $result = mysqli_query($conn, "SELECT * FROM users WHERE username='$username'");
     if (mysqli_num_rows($result) === 1) {
@@ -55,7 +53,7 @@ if (isset($_POST["submit"])) {
                 </div>
             </div>
 
-            <button name="submit" type="submit" class="btn btn-primary ">Login</button>
+            <button name="login" type="submit" class="btn btn-primary ">Login</button>
         </form>
     </div>
 </main>

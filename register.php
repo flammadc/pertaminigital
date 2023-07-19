@@ -10,17 +10,20 @@ if (isset($_SESSION['username'])) {
     header("Location: ./dashboard.php");
 }
 
-if (isset($_POST['submit'])) {
+if (isset($_POST['register'])) {
+    $namaLengkap = $_POST['namaLengkap'];
     $username = $_POST['username'];
-    $password = md5($_POST['password']);
-    $cpassword = md5($_POST['cpassword']);
+    $tanggalLahir = $_POST['tanggalLahir'];
+    $email = $_POST['email'];
+    $password = md5($_POST["password"]);
+    $cpassword = md5($_POST["cpassword"]);
 
     if ($password == $cpassword) {
         $sql = "SELECT * FROM users WHERE username='$username'";
         $result = mysqli_query($conn, $sql);
         if ($result->num_rows === 0) {
-            $sql = "INSERT INTO users (username, password)
-                    VALUES ('$username', '$password')";
+            $sql = "INSERT INTO users (namaLengkap, username, tanggalLahir, email, password)
+                    VALUES ('$namaLengkap', '$username', '$tanggalLahir', '$email', '$password')";
             $result = mysqli_query($conn, $sql);
             if ($result) {
                 header("Location: ./dashboard.php");
@@ -32,7 +35,7 @@ if (isset($_POST['submit'])) {
                 echo "<script>alert('Woops! Terjadi kesalahan.')</script>";
             }
         } else {
-            echo "<script>alert('Woops! Email Sudah Terdaftar.')</script>";
+            echo "<script>alert('Woops! Username Sudah Terdaftar.')</script>";
         }
     } else {
         echo "<script>alert('Password Tidak Sesuai')</script>";
@@ -53,10 +56,10 @@ if (isset($_POST['submit'])) {
         <form method="post" action="" class="d-flex flex-column gap-2 mb-3">
             <div class="d-flex gap-5 align-items-center justify-content-between">
                 <div class="col-auto">
-                    <label for="nama" class="col-form-label w-100">Nama Lengkap</label>
+                    <label for="namaLengkap" class="col-form-label w-100">Nama Lengkap</label>
                 </div>
                 <div class="col-auto">
-                    <input type="text" id="nama" class="form-control">
+                    <input type="text" name="namaLengkap" id="namaLengkap" class="form-control">
                 </div>
             </div>
             <div class="d-flex gap-5 align-items-center justify-content-between">
@@ -64,7 +67,7 @@ if (isset($_POST['submit'])) {
                     <label for="username" class="col-form-label w-100">Username</label>
                 </div>
                 <div class="col-auto">
-                    <input type="text" id="username" class="form-control">
+                    <input type="text" name="username" id="username" class="form-control">
                 </div>
             </div>
             <div class="d-flex gap-5 align-items-center justify-content-between">
@@ -72,7 +75,7 @@ if (isset($_POST['submit'])) {
                     <label for="tanggalLahir" class="col-form-label w-100">Tanggal Lahir</label>
                 </div>
                 <div class="col-auto">
-                    <input type="date" id="tanggalLahir" class="form-control w-100">
+                    <input type="date" name="tanggalLahir" id="tanggalLahir" class="form-control w-100">
                 </div>
             </div>
             <div class="d-flex gap-5 align-items-center justify-content-between">
@@ -80,7 +83,7 @@ if (isset($_POST['submit'])) {
                     <label for="email" class="col-form-label w-100">Email</label>
                 </div>
                 <div class="col-auto">
-                    <input type="email" id="email" class="form-control w-100">
+                    <input type="email" name="email" id="email" class="form-control w-100">
                 </div>
             </div>
             <div class="d-flex gap-5 align-items-center justify-content-between">
@@ -88,7 +91,7 @@ if (isset($_POST['submit'])) {
                     <label for="password" class="col-form-label w-100">Password</label>
                 </div>
                 <div class="col-auto">
-                    <input type="password" id="password" class="form-control w-100">
+                    <input type="password" name="password" id="password" class="form-control w-100">
                 </div>
             </div>
             <div class="d-flex gap-5 align-items-center justify-content-between">
@@ -96,11 +99,11 @@ if (isset($_POST['submit'])) {
                     <label for="cpassword" class="col-form-label w-100">Confirm Password</label>
                 </div>
                 <div class="col-auto">
-                    <input type="password" id="cpassword" class="form-control w-100">
+                    <input type="password" name="cpassword" id="cpassword" class="form-control w-100">
                 </div>
             </div>
 
-            <button type="submit" class="btn btn-primary">Register</button>
+            <button type="submit" name="register" class="btn btn-primary">Register</button>
         </form>
     </div>
 </main>
