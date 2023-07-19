@@ -28,6 +28,7 @@
                 <a href="./dashboard.php" class="btn btn-outline-primary">Dashboard</a>
                 <a href="./pembelian.php" class="btn btn-outline-primary">Pembelian</a>
                 <a href="./profile.php" class="btn btn-outline-primary">Profil</a>
+                <a href="./logout.php" class="btn btn-outline-danger">logout</a>
 
             </div>
         </div>

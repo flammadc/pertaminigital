@@ -1,18 +1,21 @@
 <?php
+session_start();
 
-// session_start();
 
-// if (!isset($_SESSION['username'])) {
-//     header("Location: index.php");
-// }
+if (isset($_SESSION['login'])) {
+    $username = $_SESSION['username'];
+} else {
+    header("Location: index.php");
+}
 include('components/navbar.php');
+echo $username;
 ?>
-
 <main class="container-md py-5" style="margin-top: 70px;">
+
     <div class="d-flex flex-column justify-content-between align-items-center border border-black rounded p-3 mb-3">
         <h4 class="d-flex align-self-start">Profil Pengguna</h4>
         <img src="assets/img/person.png" class="rounded-circle border mb-2" style="width: 100px;" alt="...">
-        <h5>User</h5>
+        <h5><?php echo $username; ?></h5>
 
     </div>
     <div class="border border-black rounded p-3 mb-3">
