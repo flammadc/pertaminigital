@@ -1,6 +1,6 @@
 <?php
 include('components/navbar.php');
-include 'config.php';
+require 'config.php';
 
 error_reporting(0);
 
@@ -10,18 +10,20 @@ if (isset($_SESSION['username'])) {
     header("Location: ./dashboard.php");
 }
 
-if (isset($_POST['submit'])) {
+if (isset($_POST["submit"])) {
     $username = $_POST['username'];
     $password = md5($_POST['password']);
 
-    $sql = "SELECT * FROM users WHERE username='$username' AND password='$password'";
-    $result = mysqli_query($conn, $sql);
-    if ($result->num_rows === 1) {
+    $result = mysqli_query($conn, "SELECT * FROM users WHERE username='$username'");
+    if (mysqli_num_rows($result) === 1) {
         $row = mysqli_fetch_assoc($result);
-        $_SESSION['username'] = $row['username'];
-        header("Location: ./dashboard.php");
+        if (password_verify($password, $row["password"])) {
+            header("Location: dashboard.php");
+        } else {
+            echo "<script>alert('username atau password Anda salah. Silahkan coba lagi!')</script>";
+        }
     } else {
-        echo "<script>alert('username atau password Anda salah. Silahkan coba lagi!')</script>";
+        echo "<script>alert('error!')</script>";
     }
 }
 ?>
@@ -41,7 +43,7 @@ if (isset($_POST['submit'])) {
                     <label for="username" class="col-form-label w-100">Username</label>
                 </div>
                 <div class="col-auto">
-                    <input type="text" id="username" class="form-control">
+                    <input type="text" name="username" id="username" class="form-control">
                 </div>
             </div>
             <div class="d-flex gap-5 align-items-center justify-content-between">
@@ -49,7 +51,7 @@ if (isset($_POST['submit'])) {
                     <label for="password" class="col-form-label w-100">Password</label>
                 </div>
                 <div class="col-auto">
-                    <input type="password" id="password" class="form-control w-100">
+                    <input type="password" name="password" id="password" class="form-control w-100">
                 </div>
             </div>
 
