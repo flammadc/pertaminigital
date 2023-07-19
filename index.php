@@ -16,7 +16,9 @@ if (isset($_POST["login"])) {
     if (mysqli_num_rows($result) === 1) {
         $row = mysqli_fetch_assoc($result);
         if (password_verify($password, $row["password"])) {
-            header("Location: dashboard.php");
+            $_SESSION['username'] = $row['username'];
+            header("Location: ./dashboard.php");
+            exit;
         } else {
             echo "<script>alert('username atau password Anda salah. Silahkan coba lagi!')</script>";
         }
