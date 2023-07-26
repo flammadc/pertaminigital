@@ -18,8 +18,6 @@ $row = mysqli_fetch_assoc($result);
         <h4 class="d-flex align-self-start">Profil Pengguna</h4>
         <img src="assets/img/person.png" class="rounded-circle border mb-2" style="width: 100px;" alt="...">
         <h5><?php echo $_SESSION["username"]; ?></h5>
-        <h5><?php echo $row["tanggalLahir"];
-            ?></h5>
 
     </div>
     <div class="border border-black rounded p-3 mb-3">

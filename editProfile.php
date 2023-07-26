@@ -1,20 +1,23 @@
 <?php
 session_start();
 require 'config.php';
-$namaLengkap = $_POST['namaLengkap'];
-$username = $_POST['username'];
-$tanggalLahir = $_POST['tanggalLahir'];
-$email = $_POST['email'];
-$password = $_POST["password"];
-$cpassword = $_POST["cpassword"];
-$id = $_POST["id"];
+$username = $_SESSION["username"];
+$query = "SELECT * FROM users WHERE username = '$username'";
+$result = mysqli_query($conn, $query);
+$row = mysqli_fetch_assoc($result);
 
-if ($password == $cpassword) {
-    $password = password_hash($_POST["password"], PASSWORD_DEFAULT);
+if (isset($_POST["update"])) {
+    $namaLengkap = $_POST['namaLengkap'];
+    $username = $_POST['username'];
+    $tanggalLahir = $_POST['tanggalLahir'];
+    $email = $_POST['email'];
+    $password = $row["password"];
+    $id = $row["id"];
     $sql = "UPDATE users SET namaLengkap='$namaLengkap', username='$username',tanggalLahir='$tanggalLahir', email='$email',password='$password' WHERE id = '$id'";
     $result = mysqli_query($conn, $sql);
+
     // if ($result) {
-    //     header("Location: ./dashboard.php");
+    header("Location: ./dashboard.php");
     echo "<script>alert('Updated!')</script>";
     // }
 } else {

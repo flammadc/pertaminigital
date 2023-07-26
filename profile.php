@@ -56,22 +56,7 @@ $row = mysqli_fetch_assoc($result);
                     <input type="email" name="email" value="<?php echo $row["email"]; ?>" id="email" class="form-control w-100">
                 </div>
             </div>
-            <div class="row g-3 align-items-center justify-content-between">
-                <div class="col-auto">
-                    <label for="password" class="col-form-label w-100">Password</label>
-                </div>
-                <div class="col-auto">
-                    <input type="password" name="password" value="<?php echo $row["password"]; ?>" id="password" class="form-control w-100">
-                </div>
-            </div>
-            <div class="row g-3 align-items-center justify-content-between">
-                <div class="col-auto">
-                    <label for="cpassword" class="col-form-label w-100">Confirm Password</label>
-                </div>
-                <div class="col-auto">
-                    <input type="password" name="cpassword" value="<?php echo $row["password"]; ?>" id="cpassword" class="form-control w-100">
-                </div>
-            </div>
+
             <button type="submit" name="update" class="btn btn-warning">Edit Data</button>
         </form>
 
